@@ -12,21 +12,14 @@
 #ifndef __LED_H
 #define __LED_H
 
-typedef struct
-{
+#define LED2 GPIO_Pin_6
+#define LED3 GPIO_Pin_7
+#define LED4 GPIO_Pin_8
+#define LED5 GPIO_Pin_9
 
-	_Bool Led2Sta;
-	_Bool Led3Sta;
-	_Bool Led4Sta;
-	_Bool Led5Sta;
-
-} LED_STATUS;
-
-extern LED_STATUS ledStatus;
 
 typedef enum
 {
-
 	LED_OFF = 0,
 	LED_ON
 
@@ -35,14 +28,7 @@ typedef enum
 
 void Led_Init(void);
 
-void Led2_Set(LED_ENUM status);
-
-void Led3_Set(LED_ENUM status);
-
-void Led4_Set(LED_ENUM status);
-
-void Led5_Set(LED_ENUM status);
-
+void Led_Set(uint16_t GPIO_Pin, LED_ENUM status);
 
 
 #endif  /* __LED_H */

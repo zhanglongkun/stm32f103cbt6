@@ -13,13 +13,10 @@
 #include "led.h"
 
 
-LED_STATUS ledStatus;
-
-
 /**
   ******************************************************************************
   * Function:     Led_Init()
-  * Description:  描述
+  * Description:  初始化 LED2、LED3、LED4、LED5
   * Parameters:   void
   * Returns:      void
   * Others:       add by zlk, 2017-05-17
@@ -31,19 +28,25 @@ void Led_Init(void)
     
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);   //打开 GPIOB 时钟
 
-    gpioInit.GPIO_Pin = GPIO_Pin_7 | GPIO_Pin_6;
+    gpioInit.GPIO_Pin = LED2 | LED3| LED4 | LED5;
     gpioInit.GPIO_Mode = GPIO_Mode_Out_PP;
     gpioInit.GPIO_Speed = GPIO_Speed_50MHz;
 
     GPIO_Init(GPIOB, &gpioInit);
-    Led3_Set(LED_OFF);
+    
+    Led_Set(LED2, LED_OFF);
+    Led_Set(LED3, LED_OFF);
+    Led_Set(LED4, LED_OFF);
+    Led_Set(LED5, LED_OFF);
+
+    return;
 }
 
-void Led3_Set(LED_ENUM status)
+void Led_Set(uint16_t GPIO_Pin, LED_ENUM status)
 {
+    GPIO_WriteBit(GPIOB, GPIO_Pin, status != LED_ON ? Bit_SET : Bit_RESET);
 
-    GPIO_WriteBit(GPIOB, GPIO_Pin_7, status != LED_ON ? Bit_SET : Bit_RESET);
-    ledStatus.Led3Sta = status;
+    return;
 }
 
 
